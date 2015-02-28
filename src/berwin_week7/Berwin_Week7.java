@@ -8,10 +8,12 @@
  *
  * ------------------------------------------------------------
  * Change log
- * User Date Description -------- ----------
- * --------------------------------------- *
+ * User Date Description 
+ * ------------------------------------------------------------
  *
- * ------------------------------------------------------------ *
+ *
+ * ------------------------------------------------------------
+ *
  */
 
 package berwin_week7;
@@ -19,8 +21,9 @@ package berwin_week7;
 // Imports
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.Stack;
-
+import javax.swing.JTextField;
 
 /**
  *
@@ -29,7 +32,7 @@ import java.util.Stack;
 public class Berwin_Week7 extends javax.swing.JFrame {
 
     // class fields
-    private final Stack st = new Stack();
+    private final Stack<String> st = new Stack<>();
     
     /** Creates new form Berwin_Week7 */
     public Berwin_Week7() {
@@ -52,18 +55,20 @@ public class Berwin_Week7 extends javax.swing.JFrame {
         colonPop = new javax.swing.JLabel();
         lblStack = new javax.swing.JLabel();
         colonStack = new javax.swing.JLabel();
-        txtPush = new javax.swing.JFormattedTextField();
-        txtPop = new javax.swing.JFormattedTextField();
         btnPush = new javax.swing.JButton();
         btnPop = new javax.swing.JButton();
+        txtPush = new javax.swing.JTextField();
+        txtPop = new javax.swing.JTextField();
         txtStack = new javax.swing.JTextField();
         btnExit = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(311, 206));
         setMinimumSize(new java.awt.Dimension(311, 206));
 
-        pnlMain.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Stack Collection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 14), Color.BLUE)); // NOI18N
+        pnlMain.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Stack Collection ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 18), java.awt.Color.blue)); // NOI18N
+        pnlMain.setForeground(java.awt.Color.blue);
         pnlMain.setName("pnlMain"); // NOI18N
 
         lblPush.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -90,14 +95,9 @@ public class Berwin_Week7 extends javax.swing.JFrame {
         colonStack.setText(":");
         colonStack.setName("colonStack"); // NOI18N
 
-        txtPush.setNextFocusableComponent(btnPush);
-
-        txtPop.setNextFocusableComponent(btnPop);
-
         btnPush.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPush.setText("Push");
         btnPush.setName("btnPush"); // NOI18N
-        btnPush.setNextFocusableComponent(txtPop);
         btnPush.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPushActionPerformed(evt);
@@ -107,7 +107,17 @@ public class Berwin_Week7 extends javax.swing.JFrame {
         btnPop.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPop.setText("Pop");
         btnPop.setName("btnPop"); // NOI18N
-        btnPop.setNextFocusableComponent(btnExit);
+        btnPop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPopActionPerformed(evt);
+            }
+        });
+
+        txtPush.setDocument(new JTextFieldLimit(1));
+        txtPush.setName("txtPush"); // NOI18N
+
+        txtPop.setFocusable(false);
+        txtPop.setName("txtPop"); // NOI18N
 
         txtStack.setFocusable(false);
         txtStack.setName("txtStack"); // NOI18N
@@ -122,22 +132,22 @@ public class Berwin_Week7 extends javax.swing.JFrame {
                     .addComponent(lblPush)
                     .addComponent(lblPop)
                     .addComponent(lblStack))
-                .addGap(18, 18, 18)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(colonPush, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(colonPop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(colonStack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(colonPush)
+                    .addComponent(colonPop)
+                    .addComponent(colonStack))
                 .addGap(18, 18, 18)
                 .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtStack)
                     .addGroup(pnlMainLayout.createSequentialGroup()
                         .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPop, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .addComponent(txtPush))
+                            .addComponent(txtPush)
+                            .addComponent(txtPop))
                         .addGap(18, 18, 18)
                         .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnPop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPush, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))))
+                            .addComponent(btnPush, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)))
+                    .addComponent(txtStack))
                 .addContainerGap())
         );
         pnlMainLayout.setVerticalGroup(
@@ -160,18 +170,22 @@ public class Berwin_Week7 extends javax.swing.JFrame {
                     .addComponent(lblStack)
                     .addComponent(colonStack)
                     .addComponent(txtStack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         btnExit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExit.setText("Exit");
         btnExit.setName("btnExit"); // NOI18N
-        btnExit.setNextFocusableComponent(txtPush);
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
             }
         });
+
+        lblError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblError.setForeground(java.awt.Color.red);
+        lblError.setText(" ");
+        lblError.setName("lblError"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,10 +193,15 @@ public class Berwin_Week7 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnExit)
-                    .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExit)
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(pnlMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +209,9 @@ public class Berwin_Week7 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnlMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExit)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(lblError)
+                    .addComponent(btnExit))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -203,9 +224,28 @@ public class Berwin_Week7 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnPushActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPushActionPerformed
-        st.push(txtPush.getText());
-        txtStack.setText(st.toString());
+        String text = txtPush.getText();
+        if(text.length() > 0) {
+            st.push(text);
+            setTxtStack();
+            clear();
+        } else {
+            setError(txtPush, "Please type <b>Push Item</b> first.");
+        }
+        txtPush.requestFocus();
     }//GEN-LAST:event_btnPushActionPerformed
+
+    private void btnPopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPopActionPerformed
+        clear();
+        if(st.size() > 0) {
+            String last = st.get(st.size() - 1);
+            st.pop();
+            setTxtStack();
+            setTxtPop(last);
+        } else {
+            setError("Nothing to pop. Please push first.");
+        }
+    }//GEN-LAST:event_btnPopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,13 +289,65 @@ public class Berwin_Week7 extends javax.swing.JFrame {
     private javax.swing.JLabel colonPop;
     private javax.swing.JLabel colonPush;
     private javax.swing.JLabel colonStack;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblPop;
     private javax.swing.JLabel lblPush;
     private javax.swing.JLabel lblStack;
     private javax.swing.JPanel pnlMain;
-    private javax.swing.JFormattedTextField txtPop;
-    private javax.swing.JFormattedTextField txtPush;
+    private javax.swing.JTextField txtPop;
+    private javax.swing.JTextField txtPush;
     private javax.swing.JTextField txtStack;
     // End of variables declaration//GEN-END:variables
+
+        // generic focus gained method
+    private void focusGained(Component comp) {
+        String compClass = comp.getClass().getSimpleName();
+        switch (compClass) {
+            case "JTextField" :
+                JTextField field = (JTextField) comp;
+                field.setForeground(Color.BLACK);
+                field.selectAll();
+                break;
+            default:
+                // nada
+        }
+    }
+
+    private void setTxtPop(String text) {
+        txtPop.setText(text);
+    }
+
+    /**
+     * This displays the stack with the top on the left
+     */
+    private void setTxtStack() {
+        StringBuilder display = new StringBuilder();
+        for(int i = st.size(); i-- > 0; ) {
+            display.append(st.get(i));
+        }
+        txtStack.setText(display.toString());
+    }
+
+    private void clear() {
+        txtPop.setText("");
+        txtPush.setText("");
+        clearError();
+    }
+
+    // set error label
+    private void setError(Component caller, String text) {
+        if(caller != null) {
+            caller.requestFocus();
+        }
+        lblError.setText("<html>" + text + "</html>");
+    }
+    private void setError(String text) {
+        setError(null, text);
+    }
+
+    // clear error label
+    private void clearError() {
+        setError(" ");
+    }
 
 }
