@@ -23,6 +23,7 @@ package berwin_week7;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Stack;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -115,6 +116,11 @@ public class Berwin_Week7 extends javax.swing.JFrame {
 
         txtPush.setDocument(new JTextFieldLimit(1));
         txtPush.setName("txtPush"); // NOI18N
+        txtPush.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPushFocusGained(evt);
+            }
+        });
 
         txtPop.setFocusable(false);
         txtPop.setName("txtPop"); // NOI18N
@@ -247,6 +253,10 @@ public class Berwin_Week7 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPopActionPerformed
 
+    private void txtPushFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPushFocusGained
+        focusGained(evt.getComponent());
+    }//GEN-LAST:event_txtPushFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -304,6 +314,7 @@ public class Berwin_Week7 extends javax.swing.JFrame {
         String compClass = comp.getClass().getSimpleName();
         switch (compClass) {
             case "JTextField" :
+            case "JTextFieldLimit" :
                 JTextField field = (JTextField) comp;
                 field.setForeground(Color.BLACK);
                 field.selectAll();
